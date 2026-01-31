@@ -1,4 +1,7 @@
 # Tasks
-Tauri app for a tasks app.
+Tauri app for a managing tasks.
 
-Vue prontend, Rust backend.
+Vue frontend, Rust backend, sqlite database.
+
+# Dev
+npm run tauri dev

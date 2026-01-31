@@ -24,6 +24,7 @@ dist-ssr
 *.sw?
 
 
+*.db
 *.png
 *.png
 *.icns
