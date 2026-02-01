@@ -3,12 +3,12 @@
     <header class="app-header">
       <h1 class="app-title">Yuno Tasks</h1>
       <button class="menu-button" @click="toggleMenu">
-        <img src="./assets/menu.svg" alt="Menu" class="menu-icon" />
+        <img :src="menuIconSrc" alt="Menu" class="menu-icon" />
       </button>
     </header>
 
     <main class="app-main">
-      <slot></slot> <!-- Allows child components to be rendered here -->
+      <Projects />
     </main>
     <div
       class="sidebar-overlay"
@@ -18,31 +18,32 @@
 
     <aside class="sidebar" :class="{ 'active': isMenuOpen }">
       <nav>
-        <ul>
-          <li>Settings</li>
-          <svg width="92" height="30" viewBox="0 0 92 30" xmlns="http://www.w3.org/2000/svg"
-           @click="toggleTheme" :class="{ 'dark-mode': isDarkMode }" class="theme-toggle">
-            <!-- Toggle track -->
-            <rect x="2" y="2" width="88" height="26" rx="13" fill="#f0f0f0" stroke="#ccc" stroke-width="2"/>
+        <svg width="92" height="30" viewBox="0 0 92 30" xmlns="http://www.w3.org/2000/svg"
+            @click="toggleTheme" :class="{ 'dark-mode': isDarkMode }" class="theme-toggle">
+          <!-- Toggle track -->
+          <rect x="2" y="2" width="88" height="26" rx="13" fill="#f0f0f0" stroke="#ccc" stroke-width="2"/>
 
-            <image href="./assets/sun.svg" x="10" y="5" width="20" height="20" class="sun-icon"/>
+          <image href="./assets/sun.svg" x="10" y="5" width="20" height="20" class="sun-icon"/>
 
-            <image href="./assets/moon.svg" x="62" y="5" width="20" height="20" class="moon-icon"/>
-          </svg>
-
-
-
-        </ul>
+          <image href="./assets/moon.svg" x="62" y="5" width="20" height="20" class="moon-icon"/>
+        </svg>
       </nav>
     </aside>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import Projects from './components/Projects.vue';
+import menuIconDark from './assets/menu.svg';
+import menuIconLight from './assets/menu-light.svg';
 
 const isMenuOpen = ref(false);
-const isDarkMode = ref(true)
+const isDarkMode = ref(true);
+
+const menuIconSrc = computed(() =>
+  isDarkMode.value ? menuIconDark : menuIconLight
+);
 
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value;
@@ -54,29 +55,11 @@ function closeMenu() {
 
 function toggleTheme() {
   isDarkMode.value = !isDarkMode.value;
-  // Emit event or update store if needed
-  console.log("clicked to change")
+  document.body.classList.toggle('light-mode', !isDarkMode.value);
 }
 </script>
 
 <style>
-:root {
-  --bg-dark: #121212d7;
-  --bg-darker: #0a0a0a;
-  --text-primary: #e0e0e0;
-  --text-secondary: #aaaaaa;
-  --accent-color: #bb86fc;
-  --overlay-color: rgba(0, 0, 0, 0.5);
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  background-color: var(--bg-dark);
-  color: var(--text-primary);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 .app-container {
   display: flex;
   flex-direction: column;
@@ -109,7 +92,6 @@ body {
   border-radius: 4px;
   transition: background-color 0.2s;
 }
-
 .menu-button:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
@@ -117,7 +99,6 @@ body {
 .menu-icon {
   width: 24px;
   height: 24px;
-  filter: invert(1);
 }
 
 .app-main {

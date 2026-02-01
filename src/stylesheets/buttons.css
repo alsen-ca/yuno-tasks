@@ -1,0 +1,67 @@
+.success-message {
+  color: green;
+  margin-top: 1rem;
+}
+
+.error-message {
+  color: red;
+  margin-top: 1rem;
+}
+
+.cancel-button {
+  background-color: #666;
+  color: white;
+}
+.cancel-button:hover {
+  background-color: #444;
+}
+
+.edit-button,
+.delete-button {
+  padding: 0.375rem 0.75rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.edit-button {
+  background-color: #6200ee;
+  color: white;
+}
+.edit-button:hover {
+  background-color: #3700b3;
+}
+
+.delete-button {
+  background-color: #d32f2f;
+  color: white;
+}
+.delete-button:hover {
+  background-color: #9a0007;
+}
+
+.save-button {
+  background-color: #03ae03;
+  color: white;
+  border: none;
+  padding: 0.375rem 0.75rem;
+  border-radius: 4px;
+}
+.save-button:hover {
+  background-color: #006d00;
+}
+
+.add-button {
+  position: absolute;
+  right: 0;
+  background: green;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+.add-button:hover {
+  background-color: darkgreen;
+}
