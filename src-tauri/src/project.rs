@@ -92,7 +92,24 @@ pub fn update_project_sequence(project_id: i64, new_sequence: i64) -> Result<(),
     Ok(())
 }
 
+pub fn get_project(id: i64) -> Result<Project> {
+    let conn = Connection::open(DB_PATH)?;
 
+    let project = conn.query_row(
+        "SELECT id, title, description, sequence FROM projects WHERE id = ?1",
+        [id],
+        |row| {
+            Ok(Project {
+                id: row.get(0)?,
+                title: row.get(1)?,
+                description: row.get(2)?,
+                sequence: row.get(3)?,
+            })
+        }
+    )?;
+
+    Ok(project)
+}
 
 pub fn delete_project(id: i64) -> Result<()> {
     let conn = Connection::open(DB_PATH)?;

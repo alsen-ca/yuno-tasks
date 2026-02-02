@@ -1,0 +1,31 @@
+.arrangement-sequence {
+  width: 50px;
+  text-align: center;
+  margin-right: 1rem;
+  color: var(--text-secondary);
+}
+
+.arrangement-title {
+  flex: 1;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.arrangement-description {
+  flex: 2;
+  color: var(--text-secondary);
+  margin-right: 1rem;
+}
+
+.arrangement-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.arrangement-selectable {
+  cursor: pointer;
+  flex: 1;
+}
+.arrangement-selectable:hover {
+  opacity: 0.8;
+}

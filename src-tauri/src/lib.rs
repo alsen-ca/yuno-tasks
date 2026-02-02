@@ -1,5 +1,5 @@
 mod project;
-mod db;
+mod task;
 
 
 #[tauri::command]
@@ -32,18 +32,58 @@ fn update_project_sequence(id: i64, sequence: i64) -> Result<(), String> {
         .map_err(|e| e.to_string())
 }
 
-/*
 #[tauri::command]
-fn create_task(title: String, description: Option<String>) -> Result<i64, String> {
-    db::create_task(&title, description.as_deref())
+fn get_project(id: i64) -> Result<project::Project, String> {
+    project::get_project(id)
         .map_err(|e| e.to_string())
-}*/
+}
+
+
+#[tauri::command]
+fn create_task(project_id: i64, title: String, description: Option<String>) -> Result<i64, String> {
+    task::create_task(project_id, &title, description.as_deref())
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn get_tasks(project_id: i64) -> Result<Vec<task::Task>, String> {
+    task::get_tasks(project_id)
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn delete_task(id: i64) -> Result<(), String> {
+    task::delete_task(id)
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn update_task_content(id: i64, title: String, description: Option<String>) -> Result<(), String> {
+    task::update_task_content(id, &title, description.as_deref())
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn update_task_sequence(id: i64, sequence: i64) -> Result<(), String> {
+    task::update_task_sequence(id, sequence)
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn get_task(id: i64) -> Result<task::Task, String> {
+    task::get_task(id)
+        .map_err(|e| e.to_string())
+}
+
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![create_project, get_projects, delete_project, update_project_content, update_project_sequence])
+        .invoke_handler(tauri::generate_handler![
+            create_project, get_projects, delete_project, update_project_content, update_project_sequence, get_project,
+            create_task, get_tasks, delete_task, update_task_content, update_task_sequence, get_task
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

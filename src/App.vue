@@ -8,7 +8,16 @@
     </header>
 
     <main class="app-main">
-      <Projects />
+      <Projects
+        v-if="currentView === 'projects'"
+        @project-selected="openTasks"
+      />
+      <Tasks
+        v-else-if="currentView === 'tasks'"
+        :projectId="selectedProjectId"
+        @task-selected="openTaskItems"
+        @back-to-projects="currentView = 'projects'"
+      />
     </main>
     <div
       class="sidebar-overlay"
@@ -35,11 +44,15 @@
 <script setup>
 import { ref, computed } from 'vue';
 import Projects from './components/Projects.vue';
+import Tasks from './components/Tasks.vue';
 import menuIconDark from './assets/menu.svg';
 import menuIconLight from './assets/menu-light.svg';
 
 const isMenuOpen = ref(false);
 const isDarkMode = ref(true);
+const currentView = ref('projects'); // Defines main viewable window at 'app-main' 
+const selectedProjectId = ref(null);
+const selectedTaskId = ref(null);
 
 const menuIconSrc = computed(() =>
   isDarkMode.value ? menuIconDark : menuIconLight
@@ -57,9 +70,30 @@ function toggleTheme() {
   isDarkMode.value = !isDarkMode.value;
   document.body.classList.toggle('light-mode', !isDarkMode.value);
 }
+
+function openTasks(projectId) {
+  selectedProjectId.value = projectId;
+  currentView.value = 'tasks';
+}
+
+function openTaskItems(taskId) {
+  selectedTaskId.value = taskId;
+  currentView.value = 'tasksItems';
+}
 </script>
 
 <style>
+.projects-section {
+  flex: 1;
+  padding: 1rem;
+}
+
+.tasks-section {
+  flex: 1;
+  padding: 1rem;
+  border-left: 1px solid #333;
+}
+
 .app-container {
   display: flex;
   flex-direction: column;
