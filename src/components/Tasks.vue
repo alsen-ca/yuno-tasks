@@ -202,6 +202,6 @@ async function deleteTask(id) {
 
 <style>
 .task-title {
-    color: var(--accent-color)
+    color: var(--accent-color);
 }
 </style>

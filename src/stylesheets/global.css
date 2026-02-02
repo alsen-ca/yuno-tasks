@@ -6,6 +6,7 @@
   --text-primary: #e0e0e0;
   --text-secondary: #aaaaaa;
   --accent-color: #bb86fc;
+  --accent-secondary: #eb6b15;
   --overlay-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -26,7 +27,7 @@ body.light-mode {
   --overlay-color: rgba(0, 0, 0, 0.2);
 }
 
-/* Hide up/down arrowa for number inpues */
+/* Hide up/down arrows for number inpues */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;

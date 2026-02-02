@@ -18,6 +18,11 @@
         @task-selected="openTaskItems"
         @back-to-projects="currentView = 'projects'"
       />
+      <TaskItems
+        v-else-if="currentView === 'taskItems'"
+        :taskId="selectedTaskId"
+        @back-to-task="currentView = 'tasks'"
+      />
     </main>
     <div
       class="sidebar-overlay"
@@ -45,6 +50,7 @@
 import { ref, computed } from 'vue';
 import Projects from './components/Projects.vue';
 import Tasks from './components/Tasks.vue';
+import TaskItems from './components/TaskItems.vue';
 import menuIconDark from './assets/menu.svg';
 import menuIconLight from './assets/menu-light.svg';
 
@@ -77,9 +83,11 @@ function openTasks(projectId) {
 }
 
 function openTaskItems(taskId) {
+  console.log(`opening task items view with task id: ${taskId}`)
   selectedTaskId.value = taskId;
-  currentView.value = 'tasksItems';
+  currentView.value = 'taskItems';
 }
+
 </script>
 
 <style>
