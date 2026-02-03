@@ -96,8 +96,15 @@ fn get_task_items(task_id: i64) -> Result<Vec<task_item::TaskItemWithSequence>, 
 }
 
 #[tauri::command]
-fn update_task_item_content(task_item_id: i64, content: String) -> Result<(), String> {
-    task_item::update_task_item_content(task_item_id, &content)
+fn update_task_item_content(task_item_id: i64, content: String, status: i64) -> Result<(), String> {
+    let status_enum = task_item::TaskItemStatus::from(status);
+    task_item::update_task_item_content(task_item_id, &content, status_enum)
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn update_task_item_sequence(task_id: i64, task_item_id: Option<i64>, new_sequence: Option<i64>) -> Result<(), String> {
+    task_item::update_task_item_sequence(task_id, task_item_id, new_sequence)
         .map_err(|e| e.to_string())
 }
 
@@ -116,7 +123,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             create_project, get_projects, delete_project, update_project_content, update_project_sequence, get_project,
             create_task, get_tasks, delete_task, update_task_content, update_task_sequence, get_task,
-            create_task_item, link_task_item, get_task_items, update_task_item_content, delete_task_item
+            create_task_item, link_task_item, get_task_items, update_task_item_content, update_task_item_sequence, delete_task_item
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

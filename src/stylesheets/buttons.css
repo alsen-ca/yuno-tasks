@@ -43,7 +43,8 @@
 }
 
 .add-button,
-.back-button {
+.back-button,
+.filter-button {
   position: absolute;
   border: none;
   cursor: pointer;
@@ -58,6 +59,11 @@
 }
 .add-button:hover {
   background-color: darkgreen;
+}
+
+.filter-button {
+  right: 5rem;
+  background: rgb(164, 160, 160);
 }
 
 .back-button {
@@ -86,4 +92,13 @@
 .sequence-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  outline: none;
 }

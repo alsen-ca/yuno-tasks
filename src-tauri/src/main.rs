@@ -55,7 +55,7 @@ pub fn init_db() -> Result<()> {
         "CREATE TABLE IF NOT EXISTS task_item_links (
             task_id INTEGER NOT NULL,
             item_id INTEGER NOT NULL,
-            sequence INTEGER NOT NULL,
+            sequence INTEGER,
             PRIMARY KEY (task_id, item_id),
             FOREIGN KEY(task_id) REFERENCES tasks(id),
             FOREIGN KEY(item_id) REFERENCES task_items(id) ON DELETE CASCADE

@@ -75,6 +75,11 @@ function closeMenu() {
 function toggleTheme() {
   isDarkMode.value = !isDarkMode.value;
   document.body.classList.toggle('light-mode', !isDarkMode.value);
+  document.icon-needs-bck.classList.toggle('light-mode', !isDarkMode.value);
+  const icons = document.querySelectorAll('.icon-needs-bck');
+  icons.forEach(icon => {
+    icon.classList.toggle('light-mode', enable);
+  });
 }
 
 function openTasks(projectId) {
@@ -83,7 +88,6 @@ function openTasks(projectId) {
 }
 
 function openTaskItems(taskId) {
-  console.log(`opening task items view with task id: ${taskId}`)
   selectedTaskId.value = taskId;
   currentView.value = 'taskItems';
 }
